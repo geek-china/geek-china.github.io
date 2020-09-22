@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>【Linux学习】MacOS下shh,sftp,scp简单使用 | 袁世超的学习笔记</title>
+    <meta name="generator" content="VuePress 1.5.2">
+    
+    <meta name="description" content="">
+    <link rel="preload" href="/assets/css/0.styles.95cd0039.css" as="style"><link rel="preload" href="/assets/js/app.721f3342.js" as="script"><link rel="preload" href="/assets/js/2.d8625e72.js" as="script"><link rel="preload" href="/assets/js/7.99b953e2.js" as="script"><link rel="prefetch" href="/assets/js/3.05c2990e.js"><link rel="prefetch" href="/assets/js/4.3d3f6d74.js"><link rel="prefetch" href="/assets/js/5.6867b9a5.js"><link rel="prefetch" href="/assets/js/6.8c4b6df2.js"><link rel="prefetch" href="/assets/js/8.90d1f19c.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.95cd0039.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">袁世超的学习笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/java/" class="nav-link">
+  Java
+</a></div><div class="nav-item"><a href="/linux/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Linux
+</a></div><div class="nav-item"><a href="/react/" class="nav-link">
+  React
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><a href="/java/" class="nav-link">
+  Java
+</a></div><div class="nav-item"><a href="/linux/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  Linux
+</a></div><div class="nav-item"><a href="/react/" class="nav-link">
+  React
+</a></div> <!----></nav>  <!----> </aside> <main class="page"> <div class="theme-default-content content__default"><h3 id="_1-ssh使用"><a href="#_1-ssh使用" class="header-anchor">#</a> 1.ssh使用</h3> <ol><li>连接远程linux,输入密码即可</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">ssh</span> 用户名@ip地址
+示例:  <span class="token function">ssh</span> root@192.180.13.14
+复制代码
+</code></pre></div><ol><li>需要端口的命令如下</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">ssh</span> -p 端口 用户名@ip地址
+示例:  <span class="token function">ssh</span> -p <span class="token number">22</span> root@192.168.13.14
+复制代码
+</code></pre></div><h3 id="_2-sftp使用"><a href="#_2-sftp使用" class="header-anchor">#</a> 2.sftp使用</h3> <ol><li>连接远程linux,输入密码即可</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">sftp</span> 用户名@ip地址
+示例:  <span class="token function">sftp</span> root@192.168.13.14
+复制代码
+</code></pre></div><ol><li>上传文件</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code>sftp<span class="token operator">&gt;</span> <span class="token builtin class-name">pwd</span>     <span class="token comment">#查看远程当前工作路径</span>
+Remote working directory: /home/root/remote/   
+sftp<span class="token operator">&gt;</span> lpwd    <span class="token comment">#查看本地当前工作路径</span>
+Local working directory: /Users/ren/local/  
+sftp<span class="token operator">&gt;</span> 
+复制代码
+put -r 本地路径  远程路径
+示例:  put -r /Users/ren/local/test.zip  /home/root/remote/
+复制代码
+</code></pre></div><ol><li>上传文件夹(在远程新建文件夹)</li></ol> <div class="language- extra-class"><pre class="language-text"><code>put -r 本地路径/文件夹/*  远程路径/新建文件夹/
+示例:  put -r  /Users/ren/local/testFolder/*   /home/ren/remote/newFolder/
+复制代码
+</code></pre></div><ol><li>下载文件</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code>get -r 远程路径 本地路径
+示例：get -r /home/ren/remote/test.zip  /Users/ren/local/
+复制代码
+</code></pre></div><ol><li>下载文件夹(在本地新建文件夹)</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code>get -r 远程路径/文件夹/*  本地路径/新建文件夹/
+示例：get -r /home/ren/remote/myFolder/*  /Users/ren/local/newFolder/
+复制代码
+</code></pre></div><h3 id="_3-退出"><a href="#_3-退出" class="header-anchor">#</a> 3.退出</h3> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token builtin class-name">exit</span> 
+复制代码
+</code></pre></div><h3 id="_4-scp使用"><a href="#_4-scp使用" class="header-anchor">#</a> 4.scp使用</h3> <ol><li>远程拷贝到本地</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">scp</span> -r 用户名@IP地址:远程路径   本地路径
+示例： <span class="token function">scp</span> -r root@192.168.13.14:/home/ren/remote/test.zip   /Users/ren/local/
+示例： <span class="token function">scp</span> -r root@192.168.13.14:/home/ren/remote/myFolder/   /Users/ren/local/
+复制代码
+</code></pre></div><ol><li>本地拷贝到远程</li></ol> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">scp</span> -r 本地路径  用户名@IP地址:远程路径   
+示例：scp -r /Users/ren/local/test.zip   root@192.168.13.14:/home/ren/remote/    
+示例：scp -r /Users/ren/local/myFolder/  root@192.168.13.14:/home/ren/remote/  
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.721f3342.js" defer></script><script src="/assets/js/2.d8625e72.js" defer></script><script src="/assets/js/7.99b953e2.js" defer></script>
+  </body>
+</html>
